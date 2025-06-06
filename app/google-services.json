@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "885584477912",
+    "project_id": "twinmindjakubwegielewski",
+    "storage_bucket": "twinmindjakubwegielewski.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:885584477912:android:86a68163f2fa91e7dc61ad",
+        "android_client_info": {
+          "package_name": "pl.jawegiel.twinmindjakubwegielewski"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "885584477912-0jhpcplsufr6no48hn0mphvlu4pf0ode.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGJplv_Xwn3bTlLosZt1ii4DNhGPshYnk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "885584477912-0jhpcplsufr6no48hn0mphvlu4pf0ode.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
