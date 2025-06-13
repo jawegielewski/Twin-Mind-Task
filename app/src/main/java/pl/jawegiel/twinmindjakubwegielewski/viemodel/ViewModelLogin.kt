@@ -2,6 +2,7 @@ package pl.jawegiel.twinmindjakubwegielewski.viemodel
 
 import android.Manifest
 import android.app.Application
+import android.content.Context
 import android.content.pm.PackageManager
 import android.credentials.GetCredentialException
 import android.graphics.BitmapFactory
@@ -90,15 +91,15 @@ class ViewModelLogin(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun getGoogleSignInCredential() {
+    fun getGoogleSignInCredential(context: Context) {
         val googleIdOption = GetGoogleIdOption.Builder().setServerClientId(SERVER_CLIENT_ID)
             .setFilterByAuthorizedAccounts(false).build()
         val request = GetCredentialRequest.Builder().addCredentialOption(googleIdOption).build()
-        val credentialManager = CredentialManager.create(application)
+        val credentialManager = CredentialManager.create(context)
         viewModelScope.launch {
             var result: GetCredentialResponse? = null
             try {
-                result = credentialManager.getCredential(context = application, request = request)
+                result = credentialManager.getCredential(context = context, request = request)
                 handleSignIn(result.credential)
             } catch (ex: Exception) {
                 Log.e(TAG, "An exception occurred during getting Google credentials: ${ex.message}")

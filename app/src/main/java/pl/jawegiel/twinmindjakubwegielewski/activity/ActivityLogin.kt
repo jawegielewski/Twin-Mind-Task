@@ -99,7 +99,7 @@ class ActivityLogin() : ComponentActivity() {
     @Composable
     fun ButtonLogin() {
         Button(onClick = {
-            vmLogin.getGoogleSignInCredential()
+            vmLogin.getGoogleSignInCredential(this)
             indicatorVisibility = View.VISIBLE
         }) {
             Text("Continue with Google")
