@@ -93,7 +93,7 @@ class ViewModelLogin(application: Application) : AndroidViewModel(application) {
 
     fun getGoogleSignInCredential(context: Context) {
         val googleIdOption = GetGoogleIdOption.Builder().setServerClientId(SERVER_CLIENT_ID)
-            .setFilterByAuthorizedAccounts(false).build()
+            .setFilterByAuthorizedAccounts(true).build()
         val request = GetCredentialRequest.Builder().addCredentialOption(googleIdOption).build()
         val credentialManager = CredentialManager.create(context)
         viewModelScope.launch {

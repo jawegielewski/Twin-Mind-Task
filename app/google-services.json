@@ -14,6 +14,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "885584477912-74vcthpf198pai6svf1nhfrbehrbqe9g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pl.jawegiel.twinmindjakubwegielewski",
+            "certificate_hash": "d975d4ee1c7d48567e713d68ee310297a73e14a9"
+          }
+        },
+        {
+          "client_id": "885584477912-8ce6lmso40818001vh88arsj5fq265st.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pl.jawegiel.twinmindjakubwegielewski",
+            "certificate_hash": "e386f62eddd7c0b2abf5a990b083c7fd63e347b2"
+          }
+        },
+        {
           "client_id": "885584477912-0jhpcplsufr6no48hn0mphvlu4pf0ode.apps.googleusercontent.com",
           "client_type": 3
         }
