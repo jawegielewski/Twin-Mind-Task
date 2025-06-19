@@ -59,14 +59,14 @@ fun ModalBottomSheet(vm: AViewModelTranscriptionChat, title: String, onChange: (
             var value by remember { mutableStateOf("") }
             OutlinedTextField(modifier = Modifier
                 .weight(1f)
-                .padding(10.dp, 20.dp), value = value, onValueChange = {
+                .padding(10.dp, 10.dp), value = value, onValueChange = {
                 value = it
             }, shape = RoundedCornerShape(8.dp), textStyle = TextStyle(fontSize = 20.sp), label = {
                 Text(text = title, fontSize = 16.sp, color = colorResource(android.R.color.darker_gray))
             })
             val coroutineScope = rememberCoroutineScope()
             Button(modifier = Modifier
-                .padding(10.dp, 20.dp)
+                .padding(10.dp, 10.dp)
                 .align(Alignment.CenterVertically), onClick = {
                 coroutineScope.launch {
                     isToShowProgress = true
@@ -76,7 +76,7 @@ fun ModalBottomSheet(vm: AViewModelTranscriptionChat, title: String, onChange: (
                 Text("Ask", fontSize = 16.sp)
             }
         }
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(10.dp))
         val chatBasedResponse by vm.chatBasedResponse.observeAsState("")
         if (chatBasedResponse.isNotEmpty()) {
             Column(Modifier

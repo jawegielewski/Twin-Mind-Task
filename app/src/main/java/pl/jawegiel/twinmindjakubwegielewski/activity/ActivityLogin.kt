@@ -2,7 +2,6 @@ package pl.jawegiel.twinmindjakubwegielewski.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -27,8 +26,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -37,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
+import pl.jawegiel.twinmindjakubwegielewski.MyApp
 import pl.jawegiel.twinmindjakubwegielewski.ui.theme.LightSeaGreen
 import pl.jawegiel.twinmindjakubwegielewski.viemodel.ViewModelAccount
 import pl.jawegiel.twinmindjakubwegielewski.viemodel.ViewModelLogin
@@ -48,7 +47,7 @@ class ActivityLogin() : ComponentActivity() {
     private val vmLogin by lazy { ViewModelProvider(this)[ViewModelLogin::class.java] }
     private val vmAccount by lazy { ViewModelProvider(this)[ViewModelAccount::class.java] }
 
-    private var indicatorVisibility by mutableIntStateOf(View.GONE)
+    private val myApp by lazy { application as MyApp }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,8 +63,7 @@ class ActivityLogin() : ComponentActivity() {
         }
 
         vmLogin.task.observe(this) {
-            startActivity(Intent(this, ActivityMain::class.java))
-            indicatorVisibility = View.GONE
+            restart()
         }
 
         vmAccount.isUserLoggedIn.observe(this) { isUserLoggedIn ->
@@ -99,8 +97,11 @@ class ActivityLogin() : ComponentActivity() {
     @Composable
     fun ButtonLogin() {
         Button(onClick = {
-            vmLogin.getGoogleSignInCredential(this)
-            indicatorVisibility = View.VISIBLE
+            if (myApp.isConnected) {
+                vmLogin.getGoogleSignInCredential(this)
+            } else {
+                Toast.makeText(this, "Turn on internet first.", Toast.LENGTH_SHORT).show()
+            }
         }) {
             Text("Continue with Google")
         }
@@ -108,7 +109,8 @@ class ActivityLogin() : ComponentActivity() {
 
     @Composable
     fun IndicatorLogin() {
-        if (indicatorVisibility == View.VISIBLE) {
+        val isIndicatorVisible by vmLogin.isIndicatorVisible.observeAsState(false)
+        if (isIndicatorVisible) {
             CircularProgressIndicator(modifier = Modifier.width(64.dp))
         }
     }
@@ -141,5 +143,11 @@ class ActivityLogin() : ComponentActivity() {
             Text(text = "Terms of Service", fontSize = 12.sp, color = Color.White)
         }
     }
-}
 
+    private fun restart() {
+        Toast.makeText(myApp, "Logged in successfully", Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, ActivityLogin::class.java)
+        this.startActivity(intent)
+        this.finishAffinity()
+    }
+}

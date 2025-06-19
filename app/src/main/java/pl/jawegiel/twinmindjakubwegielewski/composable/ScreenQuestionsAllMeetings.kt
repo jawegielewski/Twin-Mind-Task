@@ -62,7 +62,7 @@ fun ScreenAllMeetingsQuestions(vmMultipleMeetings: ViewModelQuestionsAllMeetings
     val questionsMap = vmMultipleMeetings.getQuestionsMap(questions)
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         LazyColumnQuestions(modifier = Modifier
-            .padding(0.dp, 20.dp, 0.dp, 0.dp)
+            .padding(0.dp, 10.dp, 0.dp, 0.dp)
             .weight(1f), lazyState, questionsMap, vmMultipleMeetings)
         PreviousQuestionsLoader(questions, vmMultipleMeetings)
     }
@@ -113,14 +113,14 @@ private fun CardItem(value: List<Question>, index: Int) {
 private fun Loader(vmMultipleMeetings: ViewModelQuestionsAllMeetings) {
     Box(modifier = Modifier
         .fillMaxWidth()
-        .heightIn(min = 20.dp), contentAlignment = Alignment.Center) {
+        .heightIn(min = 10.dp), contentAlignment = Alignment.Center) {
         val showLoader by vmMultipleMeetings.showLoader.observeAsState(false)
         if (showLoader) {
             CircularProgressIndicator()
         }
         Spacer(modifier = Modifier
             .fillMaxWidth()
-            .height(20.dp))
+            .height(10.dp))
     }
 }
 

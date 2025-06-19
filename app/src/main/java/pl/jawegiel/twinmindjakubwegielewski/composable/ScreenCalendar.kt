@@ -1,5 +1,8 @@
 package pl.jawegiel.twinmindjakubwegielewski.composable
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -30,12 +33,14 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import pl.jawegiel.twinmindjakubwegielewski.activity.ActivityLogin
 import pl.jawegiel.twinmindjakubwegielewski.activity.isScrolledToEnd
 import pl.jawegiel.twinmindjakubwegielewski.model.CalendarEvent
 import pl.jawegiel.twinmindjakubwegielewski.ui.theme.LightGray
@@ -63,10 +68,12 @@ fun ScreenCalendar(vmCalendar: ViewModelCalendar) {
 
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         LazyColumnCalendarEvents(modifier = Modifier
-            .padding(0.dp, 20.dp, 0.dp, 0.dp)
+            .padding(0.dp, 10.dp, 0.dp, 5.dp)
             .weight(1f), lazyState, calendarEventsMap, vmCalendar)
-
-        PreviousEventsLoader(calendarEvents, vmCalendar)
+        ButtonRefreshScreen(modifier = Modifier.padding(0.dp, 5.dp))
+        Row(verticalAlignment = Alignment.Bottom) {
+            PreviousEventsLoader(calendarEvents, vmCalendar)
+        }
     }
 }
 
@@ -76,7 +83,7 @@ private fun LazyColumnCalendarEvents(modifier: Modifier,
                                      map: java.util.LinkedHashMap<String, List<CalendarEvent>>,
                                      vmCalendar: ViewModelCalendar) {
     LazyColumn(modifier = modifier
-        .padding(0.dp, 20.dp, 0.dp, 0.dp)
+        .padding(0.dp, 10.dp, 0.dp, 0.dp)
         .fillMaxSize(), verticalArrangement = Arrangement.Top, state = lazyState) {
         map.forEach { (key, value) ->
             stickyHeader {
@@ -105,18 +112,28 @@ private fun LazyColumnCalendarEvents(modifier: Modifier,
             item {
                 Box(modifier = Modifier
                     .fillMaxWidth()
-                    .heightIn(min = 20.dp), contentAlignment = Alignment.Center) {
+                    .heightIn(min = 10.dp), contentAlignment = Alignment.Center) {
                     val showLoader by vmCalendar.showLoader.observeAsState(false)
                     if (showLoader) {
                         CircularProgressIndicator()
                     }
                     Spacer(modifier = Modifier
                         .fillMaxWidth()
-                        .height(20.dp))
+                        .height(10.dp))
                 }
             }
         }
     }
+}
+
+@Composable
+private fun ButtonRefreshScreen(modifier: Modifier) {
+        val context = LocalContext.current
+        Button(modifier = modifier, onClick = {
+            restart(context)
+        }) {
+            Text("Missing events between them? Click here.")
+        }
 }
 
 @Composable
@@ -165,3 +182,8 @@ private fun ButtonNoResultsLoadMore(coroutineScope: CoroutineScope, vmCalendar: 
     }
 }
 
+private fun restart(context: Context) {
+    val intent = Intent(context, ActivityLogin::class.java)
+    context.startActivity(intent)
+    (context as Activity).finishAffinity()
+}

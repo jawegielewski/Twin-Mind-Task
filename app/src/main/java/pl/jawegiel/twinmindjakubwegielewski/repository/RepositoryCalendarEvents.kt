@@ -8,6 +8,7 @@ import android.provider.CalendarContract
 import android.util.Log
 import pl.jawegiel.twinmindjakubwegielewski.model.CalendarEvent
 import java.time.ZonedDateTime
+import androidx.core.net.toUri
 
 private const val TAG = "RepositoryCalendarEvents"
 private const val PROJECTION_ID_INDEX: Int = 0
@@ -23,14 +24,16 @@ class RepositoryCalendarEvents(val context: Context) {
     fun getEvents(start: ZonedDateTime, end: ZonedDateTime): LinkedHashSet<CalendarEvent> {
         val startMillis = start.toInstant().toEpochMilli()
         val endMillis = end.toInstant().toEpochMilli()
-        val selection = "${CalendarContract.Events.DTSTART} >= $startMillis AND ${CalendarContract.Events.DTEND}  <=  $endMillis"
-        val sortOrder = "${CalendarContract.Events.DTSTART} ASC"
+
 
         val builder: Uri.Builder = CalendarContract.Instances.CONTENT_URI.buildUpon()
         ContentUris.appendId(builder, startMillis)
         ContentUris.appendId(builder, endMillis)
 
-        val cursor: Cursor? = context.contentResolver.query(builder.build(), PROJECTION, selection, null, sortOrder)
+        val selection = "(${CalendarContract.Events.DTSTART} >= ? AND ${CalendarContract.Events.DTEND} <= ?) OR ${CalendarContract.Events.ALL_DAY} = 1"
+        val selectionArgs: Array<String> = arrayOf(startMillis.toString(), endMillis.toString())
+        val sortOrder = "${CalendarContract.Events.DTSTART} ASC"
+        val cursor: Cursor? = context.contentResolver.query(builder.build(), PROJECTION, selection, selectionArgs, sortOrder)
 
         return getEvents(cursor)
     }

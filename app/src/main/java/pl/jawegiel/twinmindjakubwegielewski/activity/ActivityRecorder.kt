@@ -109,7 +109,7 @@ class ActivityRecorder() : ComponentActivity() {
     fun ActivityRecorderScreenLayout() {
         Scaffold(modifier = Modifier
             .background(LightGray)
-            .padding(20.dp, 0.dp), topBar = {
+            .padding(10.dp, 0.dp), topBar = {
             AppBar()
         }) { innerPadding ->
             val pagerState = rememberPagerState { 3 }

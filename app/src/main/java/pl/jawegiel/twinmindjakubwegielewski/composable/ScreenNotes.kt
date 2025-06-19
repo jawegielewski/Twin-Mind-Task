@@ -37,7 +37,7 @@ fun ScreenNotes(note: Note, vmRecorder: ViewModelRecorder, isEditModeOn: LiveDat
             TextField(modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
-                .padding(10.dp, 20.dp), value = note.text, onValueChange = {
+                .padding(10.dp, 10.dp), value = note.text, onValueChange = {
                 vmRecorder.updateNoteText(it)
             }, shape = RoundedCornerShape(8.dp), textStyle = TextStyle(fontSize = 20.sp), label = { Text(fontSize = 16.sp, color = colorResource(android.R.color.darker_gray), text = "Edit notes") })
         } else {

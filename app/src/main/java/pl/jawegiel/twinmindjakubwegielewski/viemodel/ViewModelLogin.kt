@@ -4,7 +4,6 @@ import android.Manifest
 import android.app.Application
 import android.content.Context
 import android.content.pm.PackageManager
-import android.credentials.GetCredentialException
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.util.Log
@@ -21,7 +20,7 @@ import androidx.lifecycle.application
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.tasks.Task
-import com.google.android.libraries.identity.googleid.GetGoogleIdOption
+import com.google.android.libraries.identity.googleid.GetSignInWithGoogleOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential.Companion.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL
 import com.google.firebase.auth.AuthResult
@@ -55,6 +54,11 @@ class ViewModelLogin(application: Application) : AndroidViewModel(application) {
     val isPermissionsGranted: LiveData<Boolean>
         get() = _isPermissionsGranted
 
+    private val _isIndicatorVisible = MutableLiveData<Boolean>(false)
+    val isIndicatorVisible: LiveData<Boolean>
+        get() = _isIndicatorVisible
+
+
     fun handleSignIn(credential: Credential) {
         if (credential is CustomCredential && credential.type == TYPE_GOOGLE_ID_TOKEN_CREDENTIAL) {
             val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
@@ -72,6 +76,7 @@ class ViewModelLogin(application: Application) : AndroidViewModel(application) {
                     val photoUri = auth.currentUser!!.photoUrl
                     saveUserPhoto(photoUri, result)
                 } else {
+                    _isIndicatorVisible.value = false
                     _task.postValue(result)
                 }
             }
@@ -85,6 +90,7 @@ class ViewModelLogin(application: Application) : AndroidViewModel(application) {
                 val userPhoto = BitmapFactory.decodeStream(url)
                 viewModelScope.launch {
                     repositorySharedPrefs.setBitmap(RepositorySharedPrefs.USER_PHOTO, userPhoto)
+                    _isIndicatorVisible.value = false
                     _task.postValue(result)
                 }
             }
@@ -92,8 +98,8 @@ class ViewModelLogin(application: Application) : AndroidViewModel(application) {
     }
 
     fun getGoogleSignInCredential(context: Context) {
-        val googleIdOption = GetGoogleIdOption.Builder().setServerClientId(SERVER_CLIENT_ID)
-            .setFilterByAuthorizedAccounts(true).build()
+        _isIndicatorVisible.value = true
+        val googleIdOption = GetSignInWithGoogleOption.Builder(SERVER_CLIENT_ID).build()
         val request = GetCredentialRequest.Builder().addCredentialOption(googleIdOption).build()
         val credentialManager = CredentialManager.create(context)
         viewModelScope.launch {
@@ -103,6 +109,7 @@ class ViewModelLogin(application: Application) : AndroidViewModel(application) {
                 handleSignIn(result.credential)
             } catch (ex: Exception) {
                 Log.e(TAG, "An exception occurred during getting Google credentials: ${ex.message}")
+                _isIndicatorVisible.value = false
             }
         }
     }

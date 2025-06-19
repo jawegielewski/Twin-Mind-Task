@@ -63,7 +63,7 @@ fun ScreenMemories(vmMemories: ViewModelMemories) {
     val memoriesMap = vmMemories.getMemoriesMap(memories)
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         LazyColumnMemories(modifier = Modifier
-            .padding(0.dp, 20.dp, 0.dp, 0.dp)
+            .padding(0.dp, 10.dp, 0.dp, 0.dp)
             .weight(1f), lazyState, memoriesMap, vmMemories)
         PreviousMemoriesLoader(memories, vmMemories)
     }
@@ -108,7 +108,7 @@ private fun CardItem(notes: List<Note>, index: Int) {
                 Text(UtilsDate.getTimeFromDate(startDate), fontWeight = FontWeight.Bold, color = LightGray)
                 Text(modifier = Modifier
                     .weight(1f)
-                    .padding(20.dp, 0.dp), text = notes.elementAt(index).text, fontWeight = FontWeight.Bold)
+                    .padding(10.dp, 0.dp), text = notes.elementAt(index).text, fontWeight = FontWeight.Bold)
                 Text(UtilsDate.getTimeDifference(startDate, notes.elementAt(index).endDate), fontWeight = FontWeight.Bold, color = LightGray)
             }
         }
@@ -119,14 +119,14 @@ private fun CardItem(notes: List<Note>, index: Int) {
 private fun Loader(vmMemories: ViewModelMemories) {
     Box(modifier = Modifier
         .fillMaxWidth()
-        .heightIn(min = 20.dp), contentAlignment = Alignment.Center) {
+        .heightIn(min = 10.dp), contentAlignment = Alignment.Center) {
         val showLoader by vmMemories.showLoader.observeAsState(false)
         if (showLoader) {
             CircularProgressIndicator()
         }
         Spacer(modifier = Modifier
             .fillMaxWidth()
-            .height(20.dp))
+            .height(10.dp))
     }
 }
 

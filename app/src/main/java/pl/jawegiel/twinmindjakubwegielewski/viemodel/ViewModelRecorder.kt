@@ -212,16 +212,14 @@ class ViewModelRecorder(val app: Application) : AViewModelTranscriptionChat(app)
 
             try {
                 prepare()
-            } catch (e: IOException) {
+                start()
+            } catch (e: Exception) {
                 Log.e(TAG, "${e.message}")
             }
-
-            start()
         }
     }
 
     private fun stopRecording() {
-        if (isRecording) {
             try {
                 getCurrentRecorder()!!.apply {
                     stop()
@@ -230,7 +228,6 @@ class ViewModelRecorder(val app: Application) : AViewModelTranscriptionChat(app)
             } catch (ex: Exception) {
                 Log.e(TAG, "An exception occurred during stopping MediaRecorder: +${ex.message.toString()}")
             }
-        }
     }
 
     private fun stopRecording(isInterrupted: Boolean = false, isSaving: Boolean) {

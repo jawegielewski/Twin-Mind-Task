@@ -6,8 +6,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import pl.jawegiel.twinmindjakubwegielewski.model.CalendarEvent
 import pl.jawegiel.twinmindjakubwegielewski.repository.RepositoryCalendarEvents
+import pl.jawegiel.twinmindjakubwegielewski.repository.RepositorySharedPrefs
 import pl.jawegiel.twinmindjakubwegielewski.utility.UtilsDate
 import java.time.ZonedDateTime
+
 
 class ViewModelCalendar(application: Application) : AndroidViewModel(application) {
 
@@ -17,6 +19,7 @@ class ViewModelCalendar(application: Application) : AndroidViewModel(application
     }
 
     private val repositoryCalendarEvents by lazy { RepositoryCalendarEvents(application) }
+    private val repositorySharedPrefs by lazy { RepositorySharedPrefs() }
 
     private val _showLoader = MutableLiveData<Boolean>()
     val showLoader: LiveData<Boolean>
@@ -55,6 +58,8 @@ class ViewModelCalendar(application: Application) : AndroidViewModel(application
             _calendarEvents.value = (_calendarEvents.value!! + newEvents) as LinkedHashSet<CalendarEvent>
             date = dateEnd
         }
+
+        _showLoader.value = false
     }
 
     fun clearLoader() {

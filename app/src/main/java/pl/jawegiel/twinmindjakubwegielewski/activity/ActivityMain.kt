@@ -111,7 +111,7 @@ class ActivityMain() : ComponentActivity() {
         var isToShowBottomSheet by remember { mutableStateOf(false) }
         Scaffold(modifier = Modifier
             .background(LightGray)
-            .padding(20.dp, 0.dp), topBar = {
+            .padding(10.dp, 0.dp), topBar = {
             AppBar()
         }) { innerPadding ->
             val pagerState = rememberPagerState(initialPage = 1) { 3 }
@@ -195,7 +195,7 @@ class ActivityMain() : ComponentActivity() {
         Card(shape = RoundedCornerShape(10.dp), modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight(), elevation = 4.dp) {
-            Column(modifier = Modifier.padding(20.dp)) {
+            Column(modifier = Modifier.padding(10.dp)) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Column(Modifier.weight(1f)) {
                         Text(modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 10.dp), text = "Capture 100 Hours to Unlock Features", color = Amber, fontSize = 14.sp)
@@ -210,7 +210,7 @@ class ActivityMain() : ComponentActivity() {
                     Box(modifier = Modifier
                         .weight(1f)
                         .height(12.dp)
-                        .background(color = Color.Red, shape = RoundedCornerShape(20.dp)))
+                        .background(color = Color.Red, shape = RoundedCornerShape(10.dp)))
                     Text(text = "0 / 100 hours", modifier = Modifier.padding(10.dp, 0.dp, 0.dp, 0.dp), color = colorResource(android.R.color.black), fontSize = 14.sp)
                 }
             }
