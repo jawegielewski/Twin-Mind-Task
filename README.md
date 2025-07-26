@@ -14,7 +14,7 @@ Screenshots:
 
 
 
-Requirements:
+Requirements:<br><br><br>
 
   User Authentication:
     ● Implement user login functionality.
