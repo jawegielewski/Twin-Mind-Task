@@ -17,46 +17,46 @@ Screenshots:
 ## Requirements:<br><br>
 
   ### User Authentication:<br>
-    ● Implement user login functionality.<br>
-    ● Support OAuth-based authentication (Google Sign-In recommended, via Firebase Auth).<br><br>
+    ● Implement user login functionality.
+    ● Support OAuth-based authentication (Google Sign-In recommended, via Firebase Auth).
   ### Google Calendar Integration:<br>
-    ● Allow users to connect and sync with their Google Calendar.<br>
-    ● Display upcoming events clearly within the app.<br><br>
+    ● Allow users to connect and sync with their Google Calendar.
+    ● Display upcoming events clearly within the app.
   ### Real-time Meeting Transcription:<br>
-    ● Provide a simple and intuitive interface enabling users to start audio transcription as meetings begin.<br>
-    ● Capture continuous audio input from the device’s microphone.<br>
-    ● Transcribe audio into periodic segments (recommended: every 30 seconds).<br>
-    ● Implement a robust offline-first transcription mechanism to handle intermittent network connectivity:<br>
-      ○ Utilize phone storage for temporary buffering of audio chunks.<br>
-      ○ Develop reliable syncing strategies to ensure no transcription data is lost, even when connectivity drops.<br>
-      ○ Implement intelligent retry and re-syncing mechanisms when reconnecting.<br>
-    ● Use OpenAI Speech-to-Text API or Google Gemini 2.0 Flash for transcription services.<br><br>
+    ● Provide a simple and intuitive interface enabling users to start audio transcription as meetings begin.
+    ● Capture continuous audio input from the device’s microphone.
+    ● Transcribe audio into periodic segments (recommended: every 30 seconds).
+    ● Implement a robust offline-first transcription mechanism to handle intermittent network connectivity:
+      ○ Utilize phone storage for temporary buffering of audio chunks.
+      ○ Develop reliable syncing strategies to ensure no transcription data is lost, even when connectivity drops.
+      ○ Implement intelligent retry and re-syncing mechanisms when reconnecting.
+    ● Use OpenAI Speech-to-Text API or Google Gemini 2.0 Flash for transcription services.
   ### Interactive Transcript Chat:<br>
-    ● Allow users to chat interactively with the full meeting transcript both during and after meetings.<br>
-    ● Use OpenAI or Google Gemini APIs, taking transcript segments and user queries as input.<br>
-    ● Implement streaming responses for interactive, real-time chat.<br><br>
+    ● Allow users to chat interactively with the full meeting transcript both during and after meetings.
+    ● Use OpenAI or Google Gemini APIs, taking transcript segments and user queries as input.
+    ● Implement streaming responses for interactive, real-time chat.
   ### Automatic Summary Generation:<br>
-    ● After meetings, automatically generate concise and structured summaries.<br>
-    ● Present clearly segmented meeting notes.<br><br>
+    ● After meetings, automatically generate concise and structured summaries.
+    ● Present clearly segmented meeting notes.
   ### Local and Online Storage:<br>
-    ● Implement efficient storage and synchronization between local device storage (SQLite/Room or Jetpack DataStore recommended) and cloud storage.<br>
-    ● Ensure seamless synchronization of transcripts and summaries across sessions and devices.<br><br>
+    ● Implement efficient storage and synchronization between local device storage (SQLite/Room or Jetpack DataStore recommended) and cloud storage.
+    ● Ensure seamless synchronization of transcripts and summaries across sessions and devices.
   ### Backend Development:<br>
-    ● Create a robust backend capable of:<br>
-      ○ Managing OAuth authentication and session handling.<br>
-      ○ Processing and temporarily storing audio data and transcripts (use dummy endpoints acceptable for ASR).<br>
-      ○ Storing and retrieving meeting data securely for authenticated users.<br><br>
+    ● Create a robust backend capable of:
+      ○ Managing OAuth authentication and session handling.
+      ○ Processing and temporarily storing audio data and transcripts (use dummy endpoints acceptable for ASR).
+      ○ Storing and retrieving meeting data securely for authenticated users.
   ### Error Handling:<br>
-    ● Implement comprehensive error management strategies for:<br>
-      ○ Authentication failures and OAuth token expiration.<br>
-      ○ Audio processing errors and recording interruptions.<br>
-      ○ Connectivity issues with Google Calendar and transcription APIs.<br>
-      ○ Handling and recovering lost or corrupted audio chunks.<br>
-      ○ Ensure robust transition with bluetooth devices route changes, and audio interruptions<br><br>
+    ● Implement comprehensive error management strategies for:
+      ○ Authentication failures and OAuth token expiration.
+      ○ Audio processing errors and recording interruptions.
+      ○ Connectivity issues with Google Calendar and transcription APIs.
+      ○ Handling and recovering lost or corrupted audio chunks.
+      ○ Ensure robust transition with bluetooth devices route changes, and audio interruptions.
   ### Testing:<br>
-    ● Write comprehensive unit tests covering authentication, calendar integration, audio transcription, and summary generation.<br>
-    ● Provide a basic load testing outline to showcase backend scalability and reliability.<br><br>
+    ● Write comprehensive unit tests covering authentication, calendar integration, audio transcription, and summary generation.
+    ● Provide a basic load testing outline to showcase backend scalability and reliability.
   ### Design Guidelines:<br>
-    ● Design your Android app to closely resemble the intuitive user experience of our existing iOS application.<br>
-    ● Ensure clear navigation, minimal user friction, and responsive interactions.<br>
-    ● Optimize UI for various Android devices and screen sizes.<br>
+    ● Design your Android app to closely resemble the intuitive user experience of our existing iOS application.
+    ● Ensure clear navigation, minimal user friction, and responsive interactions.
+    ● Optimize UI for various Android devices and screen sizes.
