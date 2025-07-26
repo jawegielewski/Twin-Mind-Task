@@ -1,6 +1,6 @@
-Task for TwinMind
+# Task for TwinMind
 
-Screenshots:
+## Screenshots:
 
 ![Screenshot_20250726-193357477_30pr](https://github.com/user-attachments/assets/8a00bb05-eb79-4c12-a629-2d7a0accb4b9)
 
